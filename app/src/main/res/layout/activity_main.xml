@@ -8,10 +8,10 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="367dp"
+        android:id="@+id/welcomeBanner"
+        android:layout_width="wrap_content"
         android:layout_height="138dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:contentDescription="Login header image"
         android:scaleType="fitCenter"
         android:src="@drawable/food_items"
@@ -37,6 +37,7 @@
         android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@+id/userPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -54,7 +55,7 @@
         app:layout_constraintBottom_toTopOf="@+id/userEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeBanner" />
 
     <EditText
         android:id="@+id/userPassword"
@@ -121,7 +122,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/registerAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
