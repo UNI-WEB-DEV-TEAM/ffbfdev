@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
-    tools:context=".Registration">
+    tools:context=".Registration"
+    tools:ignore="ExtraText">
 
     <TextView
         android:id="@+id/registerHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="104dp"
         android:fontFamily="@font/lato_bold"
         android:text="Create your account"
         android:textColor="@color/app_headings"
@@ -22,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/fullName"
+        android:id="@+id/regName"
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
@@ -37,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/registerHeading" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/regEmail"
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
@@ -51,10 +52,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullName" />
+        app:layout_constraintTop_toBottomOf="@+id/regName" />
 
     <EditText
-        android:id="@+id/age"
+        android:id="@+id/userAge"
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
@@ -68,10 +69,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/regEmail" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/registerUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -84,10 +85,10 @@
         app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/regPass" />
 
     <EditText
-        android:id="@+id/reg_pass"
+        android:id="@+id/regPass"
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
@@ -101,7 +102,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age" />
+        app:layout_constraintTop_toBottomOf="@+id/userAge" />
 
     <ImageView
         android:id="@+id/regBanner"
@@ -115,5 +116,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/backToLogin"
+        android:layout_width="44dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/arrow_left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
