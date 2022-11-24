@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAuth.signInWithEmailAndPassword(email, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                startActivity(new Intent(MainActivity.this, Profile.class));
+                startActivity(new Intent(MainActivity.this, Dashboard.class));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
