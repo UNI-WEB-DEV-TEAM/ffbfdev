@@ -5,23 +5,45 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.ffbf.Models.ActiveSession;
+import com.example.ffbf.Models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity{
 
-    private TextView registerAccount;
-    private EditText userEmail, userPassword;
-    private Button loginBtn;
-    private FirebaseAuth mAuth;
+    //declaring the impostors
+    TextView registerAccount;
+    EditText userEmail, userPassword;
+    Button loginBtn;
+
+    // Create Database Reference
+
+    FirebaseDatabase dbMain;
+    DatabaseReference dbRef;
+    Query dbQry;
+    //Database connection
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+
+    private static final String TAG = "Mainactivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,72 +51,121 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        //Declare Views in the Login/Main Activity
-        userEmail = findViewById(R.id.userEmail);
-        userPassword = findViewById(R.id.userPassword);
-        registerAccount = findViewById(R.id.registerAccount);
-        registerAccount.setOnClickListener(this);
+        //Imposters links
+        userEmail = findViewById(R.id.user_email);
+        userPassword = findViewById(R.id.user_pass);
+        registerAccount = findViewById(R.id.register_account);
         loginBtn = findViewById(R.id.loginBtn);
-        loginBtn.setOnClickListener(this);
 
         // Database connection
 
         mAuth = FirebaseAuth.getInstance();
+        dbMain = FirebaseDatabase.getInstance();
+        dbRef = dbMain.getReference("message");
+        dbRef.setValue("Welcome user");
 
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.loginBtn:
-                user_login();
-                break;
-            case R.id.registerAccount:
-                startActivity(new Intent(this, Registration.class));
-        }
-    }
-
-    private void user_login() {
-        String email = userEmail.getText().toString().trim();
-        String pass = userPassword.getText().toString().trim();
-
-        // Check the password field for user input
-        if(pass.isEmpty()) {
-            userPassword.setError("Password is required");
-            userPassword.requestFocus();
-            return;
-        }
-        // Check the password length
-        if(pass.length() < 6){
-            userPassword.setError("Password has to contain a minimum fo 6 characters!");
-            userPassword.requestFocus();
-            return;
-        }
-
-        if(email.isEmpty()){
-            userEmail.setError("Email is required!");
-            userEmail.requestFocus();
-            return;
-        }
-        //Validate E-mail form match
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            userEmail.setError("Please provide a valid email address!");
-            userEmail.requestFocus();
-            return;
-        }
-        // User signing process after credential verification
-        mAuth.signInWithEmailAndPassword(email, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        dbRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess(AuthResult authResult) {
-                startActivity(new Intent(MainActivity.this, Dashboard.class));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String value = snapshot.getValue(String.class);
+                Toast.makeText(MainActivity.this, value, Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(new OnFailureListener() {
+
             @Override
-            public void onFailure(@NonNull Exception e) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null){
+                    //user signed in
+                    Log.d(TAG, "User signed in");
+                }
+                else{
+                    //user signed out
+                    Log.d(TAG, "User signed out");
+                }
+            }
+        };
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String emailString = userEmail.getText().toString();
+                String pwd = userPassword.getText().toString();
+                if (!emailString.equals("") && !pwd.equals("")){
+                    //singing the user in with email and password, checking if the records are matching with the
+                    //ones on the firebase authentication records
+                    mAuth.signInWithEmailAndPassword(emailString,pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            //this statement will tell what the app should do if the checks above
+
+                            if (!task.isSuccessful()){
+                                Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                            //in case of completion this statement will check which user is logged in
+                            else{
+                                Toast.makeText(MainActivity.this, "Signed in", Toast.LENGTH_SHORT).show();
+
+                                Query dbrefq = FirebaseDatabase.getInstance().getReference("users").orderByChild("id").equalTo(mAuth.getUid());
+                                dbrefq.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot dss: snapshot.getChildren())
+                                        {
+                                            ActiveSession.OnSession.user = dss.getValue(User.class);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+                                //once the login gone all the way through, the next step in the app
+                                //is going to be the homepage, where you can find the 3 submenus of
+                                //all the eateries
+                                Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                                startActivity(intent);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        registerAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Registration.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mAuthListener != null){
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 }
