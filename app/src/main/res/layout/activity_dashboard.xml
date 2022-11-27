@@ -4,6 +4,150 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:backgroundTint="@color/app_background"
     tools:context=".Dashboard">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/restaurant_card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/app_background"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/restaurant_section_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/restaurant_view_card_bg" />
+
+        <TextView
+            android:id="@+id/restaurant_title_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_baseline_restaurant_24"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Restaurants"
+            android:textColor="@color/app_headings"
+            android:textSize="18sp"
+            app:drawableTint="@color/app_headings" />
+
+        <Button
+            android:id="@+id/view_restaurants"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="185dp"
+            android:layout_marginTop="155dp"
+            android:backgroundTint="@color/app_orange"
+            android:text="View Restaurants"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/streetfood_card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/app_background"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_card_view">
+
+        <ImageView
+            android:id="@+id/streetfood_section_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/streetfood" />
+
+        <TextView
+            android:id="@+id/streetfood_title_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_baseline_fastfood_24"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Street Food"
+            android:textColor="@color/app_headings"
+            android:textSize="18sp"
+            app:drawableTint="@color/app_headings" />
+
+        <Button
+            android:id="@+id/view_street_food"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="185dp"
+            android:layout_marginTop="155dp"
+            android:backgroundTint="@color/app_orange"
+            android:fontFamily="@font/lato_bold"
+            android:text="View Street Food"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/catering_card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/app_background"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/streetfood_card_view">
+
+        <ImageView
+            android:id="@+id/catering_section_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/catering_card_view" />
+
+        <TextView
+            android:id="@+id/catering_title_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_baseline_delivery_dining_24"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Catering"
+            android:textColor="@color/app_headings"
+            android:textSize="18sp"
+            app:drawableTint="@color/app_headings" />
+
+        <Button
+            android:id="@+id/view_catering"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="185dp"
+            android:layout_marginTop="155dp"
+            android:backgroundTint="@color/app_orange"
+            android:fontFamily="@font/lato_bold"
+            android:text="View Catering"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
