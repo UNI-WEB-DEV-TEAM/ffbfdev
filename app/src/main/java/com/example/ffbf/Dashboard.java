@@ -30,36 +30,36 @@ public class Dashboard extends AppCompatActivity {
         viewCatering = findViewById(R.id.view_catering);
 
 
-//        viewRestaurant.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                node = "Restaurant";
-//                Intent i = new Intent(Dashboard.this, EaterySection.class);
-//                i.putExtra("type", node);
-//                startActivity(i);
-//            }
-//        });
-//
-//        viewStreetFood.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                node = "Street_Food";
-//                Intent i = new Intent(Dashboard.this, EaterySection.class);
-//                i.putExtra("type", node);
-//                startActivity(i);
-//            }
-//        });
-//
-//        viewCatering.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                node = "Catering";
-//                Intent i = new Intent(Dashboard.this, EaterySection.class);
-//                i.putExtra("this", node);
-//                startActivity(i);
-//
-//            }
-//        });
+        viewRestaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                node = "Restaurant";
+                Intent i = new Intent(Dashboard.this, EateryEntries.class);
+                i.putExtra("type", node);
+                startActivity(i);
+            }
+        });
+
+        viewStreetFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                node = "Street_Food";
+                Intent i = new Intent(Dashboard.this, EateryEntries.class);
+                i.putExtra("type", node);
+                startActivity(i);
+            }
+        });
+
+        viewCatering.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                node = "Catering";
+                Intent i = new Intent(Dashboard.this, EateryEntries.class);
+                i.putExtra("this", node);
+                startActivity(i);
+
+            }
+        });
 
 
     }
