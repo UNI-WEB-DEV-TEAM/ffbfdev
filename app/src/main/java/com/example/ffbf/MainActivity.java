@@ -119,9 +119,9 @@ public class MainActivity extends AppCompatActivity{
                                 dbrefq.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        for (DataSnapshot dss: snapshot.getChildren())
+                                        for (DataSnapshot dts: snapshot.getChildren())
                                         {
-                                            ActiveSession.OnSession.user = dss.getValue(User.class);
+                                            ActiveSession.OnSession.user = dts.getValue(User.class);
                                         }
                                     }
 

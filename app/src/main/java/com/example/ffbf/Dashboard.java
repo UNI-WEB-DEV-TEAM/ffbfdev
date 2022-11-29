@@ -8,15 +8,60 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 
 public class Dashboard extends AppCompatActivity {
+
+    //Declare the active imposters
+
+    Button viewRestaurant, viewStreetFood, viewCatering;
+    String node = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         setContentView(R.layout.activity_dashboard);
+
+        viewRestaurant = findViewById(R.id.view_restaurants);
+        viewStreetFood = findViewById(R.id.view_street_food);
+        viewCatering = findViewById(R.id.view_catering);
+
+
+//        viewRestaurant.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                node = "Restaurant";
+//                Intent i = new Intent(Dashboard.this, EaterySection.class);
+//                i.putExtra("type", node);
+//                startActivity(i);
+//            }
+//        });
+//
+//        viewStreetFood.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                node = "Street_Food";
+//                Intent i = new Intent(Dashboard.this, EaterySection.class);
+//                i.putExtra("type", node);
+//                startActivity(i);
+//            }
+//        });
+//
+//        viewCatering.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                node = "Catering";
+//                Intent i = new Intent(Dashboard.this, EaterySection.class);
+//                i.putExtra("this", node);
+//                startActivity(i);
+//
+//            }
+//        });
+
+
     }
     //Display the navigation menu
     @Override
